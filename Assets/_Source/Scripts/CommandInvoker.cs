@@ -6,8 +6,9 @@ namespace Scripts
     public class CommandInvoker : MonoBehaviour
     {
         private const int MaxCommandHistory = 5;
-        private Queue<ICommand> commandQueue = new Queue<ICommand>();
-        private Queue<ICommand> rightClickCommandQueue = new Queue<ICommand>();
+        private List<ICommand> commandHistory = new List<ICommand>();
+        private List<ICommand> rightClickCommandHistory = new List<ICommand>();
+        private List<Vector2> mousePosition = new List<Vector2>();
 
         private ICommand spawnCommand;
         private ICommand moveCommand;
@@ -30,34 +31,37 @@ namespace Scripts
         public void AddRightClickCommand(Vector2 position)
         {
             ICommand commandClone = spawnCommand;
-            rightClickCommandQueue.Enqueue(commandClone);
+            mousePosition.Add(position);
+            rightClickCommandHistory.Add(commandClone);
         }
 
         public void ExecuteRightClickCommands()
         {
-            while (rightClickCommandQueue.Count > 0)
+            while (rightClickCommandHistory.Count > 0)
             {
-                ICommand command = rightClickCommandQueue.Dequeue();
-                command.Invoke(Vector2.zero);
+                ICommand command = rightClickCommandHistory[0];
+                command.Invoke(mousePosition[0]);
                 AddToCommandHistory(command);
+                rightClickCommandHistory.RemoveAt(0);
             }
         }
 
         public void AddToCommandHistory(ICommand command)
         {
-            if (commandQueue.Count >= MaxCommandHistory)
+            if (commandHistory.Count >= MaxCommandHistory)
             {
-                commandQueue.Dequeue();
+                commandHistory.RemoveAt(0);
             }
-            commandQueue.Enqueue(command);
+            commandHistory.Add(command);
         }
 
         public void Undo()
         {
-            if (commandQueue.Count > 0)
+            if (commandHistory.Count > 0)
             {
-                ICommand lastCommand = commandQueue.Dequeue();
+                ICommand lastCommand = commandHistory[commandHistory.Count - 1];
                 lastCommand.Undo();
+                commandHistory.RemoveAt(commandHistory.Count - 1);
                 Debug.Log("Команда отменена: " + lastCommand.GetType().Name);
             }
             else
