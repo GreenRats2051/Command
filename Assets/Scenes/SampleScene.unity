@@ -271,37 +271,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1259642491
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1259642492}
-  m_Layer: 0
-  m_Name: PointToSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1259642492
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259642491}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1302173897
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1302173899}
   - component: {fileID: 1302173898}
+  - component: {fileID: 1302173900}
   m_Layer: 0
   m_Name: CommandInvoker
   m_TagString: Untagged
@@ -331,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae4c6e45b069cd4ca79384cce3d2e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1259642491}
+  prefabToSpawn: {fileID: 6258766090743227068, guid: 559bbe87c38d2254188ae1786b809f7c, type: 3}
   characterTransform: {fileID: 2028280764}
 --- !u!4 &1302173899
 Transform:
@@ -348,6 +318,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1302173900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302173897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b677b64aa6fe16e45b275010611fde22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commandInvoker: {fileID: 1302173898}
 --- !u!4 &2028280764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3093849550878833562, guid: 2de07d83b89c7f64bb948cdda3f72057, type: 3}
@@ -359,5 +342,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1302173899}
-  - {fileID: 1259642492}
   - {fileID: 352305310}

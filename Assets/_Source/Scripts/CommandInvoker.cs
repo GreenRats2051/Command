@@ -21,44 +21,19 @@ namespace Scripts
             moveCommand = new MoveCharacterCommand(characterTransform);
         }
 
-        private void Update()
+        public void ExecuteCommand(Vector2 position)
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                AddRightClickCommand(spawnCommand, mousePosition);
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                ExecuteCommand(moveCommand, mousePosition);
-            }
-
-            if (Input.GetMouseButtonDown(2))
-            {
-                Undo();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                ExecuteRightClickCommands();
-            }
+            moveCommand.Invoke(position);
+            AddToCommandHistory(moveCommand);
         }
 
-        private void ExecuteCommand(ICommand command, Vector2 position)
+        public void AddRightClickCommand(Vector2 position)
         {
-            command.Invoke(position);
-            AddToCommandHistory(command);
-        }
-
-        private void AddRightClickCommand(ICommand command, Vector2 position)
-        {
-            ICommand commandClone = command;
+            ICommand commandClone = spawnCommand;
             rightClickCommandQueue.Enqueue(commandClone);
         }
 
-        private void ExecuteRightClickCommands()
+        public void ExecuteRightClickCommands()
         {
             while (rightClickCommandQueue.Count > 0)
             {
@@ -68,7 +43,7 @@ namespace Scripts
             }
         }
 
-        private void AddToCommandHistory(ICommand command)
+        public void AddToCommandHistory(ICommand command)
         {
             if (commandQueue.Count >= MaxCommandHistory)
             {
@@ -77,7 +52,7 @@ namespace Scripts
             commandQueue.Enqueue(command);
         }
 
-        private void Undo()
+        public void Undo()
         {
             if (commandQueue.Count > 0)
             {
